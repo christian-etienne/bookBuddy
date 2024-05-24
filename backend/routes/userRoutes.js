@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const { registerUser, loginUser, getUserProfile, updateUserPassword } = require('../controllers/userController');
-const { protect } = require('../middleware/auth');
+const protect = require('../middleware/auth'); // Modifié ici pour s'assurer que `protect` est bien défini
 
 // @route   POST api/users/register
 // @desc    Register a new user

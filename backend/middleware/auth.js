@@ -1,8 +1,12 @@
+// backend/middleware/auth.js
 const jwt = require('jsonwebtoken');
 
-module.exports = function (req, res, next) {
+const protect = (req, res, next) => {
   // Get token from header
-  const token = req.header('Authorization').replace('Bearer ', '');
+  let token = req.header('Authorization');
+  if (token && token.startsWith('Bearer ')) {
+    token = token.replace('Bearer ', '');
+  }
 
   // Check if no token
   if (!token) {
@@ -18,3 +22,5 @@ module.exports = function (req, res, next) {
     res.status(401).json({ msg: 'Token is not valid' });
   }
 };
+
+module.exports = protect;

@@ -1,50 +1,32 @@
 // backend/routes/bookRoutes.js
 const express = require('express');
 const router = express.Router();
-const {
-  addBook,
-  getBooks,
-  getBookById,
-  updateBookStatus,
-  updateCurrentPage,
-  addBookToFavorites,
-  removeBookFromFavorites,
-} = require('../controllers/bookController');
-const { protect } = require('../middleware/authMiddleware');
-
-// @route   POST api/books/addBook
-// @desc    Add a new book
-// @access  Private
-router.post('/addBook', protect, addBook);
+const { getBooks, getBookById, createBook, updateBook, deleteBook } = require('../controllers/bookController');
+const protect = require('../middleware/auth'); // Assurez-vous que le chemin est correct
 
 // @route   GET api/books
 // @desc    Get all books
-// @access  Private
-router.get('/', protect, getBooks);
+// @access  Public
+router.get('/', getBooks);
 
-// @route   GET api/books/book/:id
+// @route   GET api/books/:id
 // @desc    Get book by ID
-// @access  Private
-router.get('/book/:id', protect, getBookById);
+// @access  Public
+router.get('/:id', getBookById);
 
-// @route   PUT api/books/book/:id
-// @desc    Update book status
+// @route   POST api/books
+// @desc    Create a new book
 // @access  Private
-router.put('/book/:id', protect, updateBookStatus);
+router.post('/', protect, createBook);
 
-// @route   PUT api/books/status/:id
-// @desc    Update current page
+// @route   PUT api/books/:id
+// @desc    Update a book
 // @access  Private
-router.put('/status/:id', protect, updateCurrentPage);
+router.put('/:id', protect, updateBook);
 
-// @route   POST api/books/favorite/:id
-// @desc    Add book to favorites
+// @route   DELETE api/books/:id
+// @desc    Delete a book
 // @access  Private
-router.post('/favorite/:id', protect, addBookToFavorites);
-
-// @route   DELETE api/books/favorite/:id
-// @desc    Remove book from favorites
-// @access  Private
-router.delete('/favorite/:id', protect, removeBookFromFavorites);
+router.delete('/:id', protect, deleteBook);
 
 module.exports = router;
