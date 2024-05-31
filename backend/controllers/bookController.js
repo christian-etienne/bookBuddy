@@ -92,6 +92,11 @@ exports.addFavorite = async (req, res) => {
   }
 };
 
+// Ajouter un livre aux favoris
+exports.addFavorite = async (req, res)=>{
+  
+}
+
 // Supprimer un livre des favoris
 exports.removeFavorite = async (req, res) => {
   const { user_id, book_id } = req.body;
